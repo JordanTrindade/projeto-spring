@@ -6,8 +6,10 @@ import com.jordan.programa.dominios.Categoria;
 import com.jordan.programa.repositories.CategoriaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class CategoriaServices {
+@Service
+public class CategoriaService {
 
     @Autowired
     private CategoriaRepository repo;
