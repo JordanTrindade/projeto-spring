@@ -1,10 +1,10 @@
 package com.jordan.programa.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jordan.programa.dominios.Categoria;
+import com.jordan.programa.services.CategoriaServices;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,18 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> Listar(){
-      
+    private CategoriaServices service;
 
-        Categoria cat1 = new Categoria(1,"Informática");
-        Categoria cat2 = new Categoria(2,"Escritório");
+    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> find(@PathVariable Integer id){
 
-        List <Categoria> Lista = new ArrayList<>();
-
-        Lista.add(cat1);
-        Lista.add(cat2);
-
-        return Lista;
+        Categoria obj = service.buscar(id);
+        return ResponseEntity.ok().body(obj);
     }
+    
 }
