@@ -5,8 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.jordan.programa.dominios.Categoria;
+import com.jordan.programa.dominios.Cidade;
+import com.jordan.programa.dominios.Estado;
 import com.jordan.programa.dominios.Produto;
 import com.jordan.programa.repositories.CategoriaRepository;
+import com.jordan.programa.repositories.CidadeRepository;
+import com.jordan.programa.repositories.EstadoRepository;
 import com.jordan.programa.repositories.ProdutoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,10 @@ public class ProgramaApplication implements CommandLineRunner {
 	private CategoriaRepository cR;
 	@Autowired
 	private ProdutoRepository pR;
+	@Autowired
+	private EstadoRepository estadoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProgramaApplication.class, args);
@@ -39,7 +47,8 @@ public class ProgramaApplication implements CommandLineRunner {
 
 	
 		List<Categoria> adcCat = new ArrayList<>();
-		adcCat.add(cat1); adcCat.add(cat2); 
+		adcCat.add(cat1); 
+		adcCat.add(cat2); 
 	
 		
 		List<Produto> adcProd = new ArrayList<>();
@@ -53,9 +62,25 @@ public class ProgramaApplication implements CommandLineRunner {
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategorias().add(cat1);
 
-
 		cR.saveAll(adcCat);
 		pR.saveAll(adcProd);
+
+		
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "Sao Paulo");
+
+		Cidade c1 = new Cidade(null, "Uberlandia",est1);
+		Cidade c2 = new Cidade(null, "São Pualo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+
+		est1.getCidades().add(c1);
+		est2.getCidades().add(c2);
+		est2.getCidades().add(c3);
+
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		
 	}
 
 }
