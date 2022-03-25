@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cidade {
@@ -16,7 +16,7 @@ public class Cidade {
     private Integer id;
     private String nome;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     private Estado estado;
 

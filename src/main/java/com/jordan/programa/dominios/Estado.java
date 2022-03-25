@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Estado {
@@ -19,8 +19,9 @@ public class Estado {
     private Integer id;
     private String nome;
 
-    @JsonManagedReference
+    
     @OneToMany(mappedBy = "estado")
+    @JsonBackReference
     private List<Cidade> cidades = new ArrayList<>();
 
     public Estado() {

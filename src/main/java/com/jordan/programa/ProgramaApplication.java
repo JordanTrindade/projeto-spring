@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.jordan.enums.TipoCliente;
 import com.jordan.programa.dominios.Categoria;
 import com.jordan.programa.dominios.Cidade;
+import com.jordan.programa.dominios.Cliente;
+import com.jordan.programa.dominios.Endereco;
 import com.jordan.programa.dominios.Estado;
 import com.jordan.programa.dominios.Produto;
 import com.jordan.programa.repositories.CategoriaRepository;
 import com.jordan.programa.repositories.CidadeRepository;
+import com.jordan.programa.repositories.ClienteRepository;
+import com.jordan.programa.repositories.EnderecoRepository;
 import com.jordan.programa.repositories.EstadoRepository;
 import com.jordan.programa.repositories.ProdutoRepository;
 
@@ -29,6 +34,11 @@ public class ProgramaApplication implements CommandLineRunner {
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProgramaApplication.class, args);
@@ -80,6 +90,25 @@ public class ProgramaApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
+		//clientes e pedidos
+
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "153123581235", TipoCliente.PESSOAFISICA);
+
+		Endereco e1 = new Endereco(null, "Rua flores", "300", "Apto 203", "Jardim", "31234124", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "3877012", cli1, c2);
+
+		String t1 = "87654321";
+		String t2 = "12345678";
+
+		cli1.getTelefones().add(t1);
+		cli1.getTelefones().add(t2);
+
+		cli1.getEnderecos().add(e1);
+		cli1.getEnderecos().add(e2);
+
+		clienteRepository.save(cli1);
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+
 		
 	}
 
